@@ -5,6 +5,7 @@ interface Props {
   title?: string | undefined;
   description?: string | undefined;
   ogImageUrl?: string | undefined;
+  keywords?: string | undefined;
   info?: {
     name: string;
     baseUrl: string;
@@ -13,8 +14,9 @@ interface Props {
 
 const {
   title = "Jederilson S. Luz: Personal Site",
-  description = "I'm a Software Engineer with an emphasis on mobile using React Native",
+  description = "Fullstack Software Engineer and Mobile React Native Engineer based in LATAM. US-ready for remote positions—experienced working with American companies. Building web and mobile apps with Next.js, TypeScript, React Native.",
   ogImageUrl = "/assets/portrait.jpg",
+  keywords = "Software Engineer LATAM, Fullstack Software Engineer LATAM, Mobile React Native Engineer, US-ready remote engineer, remote engineer for US companies, LATAM engineer remote US, hire LATAM developer remote, Frontend Developer, Next.js, TypeScript, React Native, Web Developer",
   info = {
     baseUrl: "https://jederilson.dev",
     name: "Jederilson S. Luz",
@@ -23,10 +25,13 @@ const {
 ---
 
 <meta charset="UTF-8" />
-<meta name="description" property="og:description" content={description} />
 <meta name="viewport" content="width=device-width" />
 <meta name="generator" content={Astro.generator} />
 <title>{title}</title>
+
+<!-- SEO Keywords for discoverability -->
+<meta name="keywords" content={keywords} />
+<meta name="robots" content="index, follow" />
 
 <!-- Primary Meta Tags -->
 {
@@ -71,7 +76,33 @@ const {
   )
 }
 
+<link rel="sitemap" type="application/xml" title="Sitemap" href={`${info.baseUrl}/sitemap.xml`} />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<!-- JSON-LD Structured Data for search engines -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": `${info.baseUrl}/#person`,
+      "name": info.name,
+      "url": info.baseUrl,
+      "jobTitle": ["Software Engineer", "Fullstack Software Engineer LATAM", "Mobile React Native Engineer", "US-ready Remote Engineer"],
+      "description": description,
+      "knowsAbout": ["React Native", "Next.js", "TypeScript", "Web Development", "Mobile Development"],
+      "image": `${info.baseUrl}${ogImageUrl}`,
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${info.baseUrl}/#website`,
+      "url": info.baseUrl,
+      "name": `${info.name} - Software Engineer LATAM | US-ready for Remote`,
+      "description": description,
+      "publisher": { "@id": `${info.baseUrl}/#person` },
+    },
+  ],
+})} />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link

@@ -45,7 +45,17 @@ const { Content } = await entry.render();
 			</header>
 			<main class="wrapper">
 				<div class="stack gap-10 content">
-					{entry.data.img && <img src={entry.data.img} alt={entry.data.img_alt || ''} />}
+					{entry.data.img && (
+						<img
+							src={entry.data.img}
+							alt={entry.data.img_alt || ''}
+							width={entry.data.img_width ?? 1200}
+							height={entry.data.img_height ?? 630}
+							loading="eager"
+							decoding="async"
+							fetchpriority="high"
+						/>
+					)}
 					<div class="content">
 						<Content />
 					</div>
